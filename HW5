@@ -1,0 +1,39 @@
+clc; clear all; close all;
+
+W = 10000;
+S = 20; 
+AR = 6; 
+D_coeff_parasite = .03; 
+e = 0.8;
+nu = 0.16;
+T_avail = nu*W;
+rho = 1.225;
+g = 9.81;
+V_stall = 25;
+V_max = 63;
+
+V = linspace(V_stall,V_max,100);
+C_Lift = ( 2 * W ) ./ (rho * V.^2 * S); % lift coeff
+D_coeff_Induced = C_Lift.^2 ./ (pi * e * AR); %induced drag
+D_coeff_total = D_coeff_parasite + D_coeff_Induced; %total drag coeff
+Drag_Force = (.5 * rho * V.^2 .* S .* D_coeff_total); 
+T_excess = T_avail - Drag_Force;
+h_dot = (T_excess .* V) ./ W ;
+
+gamma = asin(T_excess ./ W);
+gamma_deg = gamma .* (180/pi);
+
+
+figure(1)
+plot(V,h_dot, LineWidth=2)
+title("Airspeed vs Climb Rate")
+xlabel("Velocity (m/s)")
+ylabel("climb rate (m/s)")
+
+figure(2)
+plot(V,gamma_deg, LineWidth=2, Color="r") 
+title("Airspeed vs Flight Path")
+xlabel("Velocity(m/s)")
+ylabel("Flight path (Deg)")
+
+
