@@ -37,3 +37,24 @@ xlabel("Velocity(m/s)")
 ylabel("Flight path (Deg)")
 
 
+% for problem 2 :
+
+T_excess_p2 = -Drag_Force;
+gamma_p2 = asin(Drag_Force / W);
+gamma_deg_p2 = gamma_p2 .* 180/pi; %flight path angle for no thrust
+
+figure(3)
+plot(V,gamma_deg_p2, LineWidth=2, Color="g")
+title("Velocity vs Flight Path (No Thrust)")
+xlabel("Velocity (m/s)")
+ylabel("flight path (deg)")
+
+%V^2 = V_horizontal^2 + h_dot^2
+V_horizontal = V .* cos(gamma_p2); 
+h_dot_glide = V .* sin(gamma_p2);
+
+figure(4)
+plot(V_horizontal,h_dot_glide, LineWidth=2, color="b")
+title("Descent Rate vs Horizontal Speed")
+xlabel("Horizontal Speed (m/s)")
+ylabel("Descent Rate (m/s)")
